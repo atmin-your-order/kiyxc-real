@@ -1,8 +1,22 @@
-- name: Install Railway CLI
-  run: npm install -g @railway/cli
+name: Deploy to Railway
 
-- name: Link Railway Project
-  run: railway link 919caca5-e737-47bd-aa8c-3074077351cf --token ${{ secrets.RAILWAY_TOKEN }}
+on:
+  push:
+    branches:
+      - main
 
-- name: Deploy to Railway
-  run: railway up --token ${{ secrets.RAILWAY_TOKEN }}
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+
+      - name: Link Railway Project
+        run: railway link 919caca5-e737-47bd-aa8c-3074077351cf --token ${{ secrets.RAILWAY_TOKEN }}
+
+      - name: Deploy to Railway
+        run: railway up --token ${{ secrets.RAILWAY_TOKEN }}
