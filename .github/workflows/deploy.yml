@@ -11,11 +11,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
-      - name: Install Railway
-        run: npm i -g railway
 
-      - name: Login Railway & Deploy
-        run: railway up --service kiyxc
+      - name: Install Railway CLI (Modern)
+        run: npm install -g @railway/cli
+
+      - name: Deploy ke Railway (CLI Baru)
+        run: railway deploy --service kiyxc
         env:
           RAILWAY_TOKEN: 94b46a96-7c44-45e4-bdfc-1179dca0e705
