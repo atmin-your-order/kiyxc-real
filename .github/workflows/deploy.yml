@@ -1,27 +1,31 @@
-name: Deploy to Railway
+name: Deploy ke Railway
 
 on:
   push:
     branches:
-      - main # ganti kalau kamu pakai branch lain
+      - main # ganti kalau branch kamu beda
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repo
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
       - name: Install Railway CLI
-        run: npm install -g @railway/cli
+        run: npm install -g railway
 
-      - name: Link Railway Project
-        run: railway link 919caca5-e737-47bd-aa8c-3074077351cf
-        env:
-          RAILWAY_TOKEN: 94b46a96-7c44-45e4-bdfc-1179dca0e705
+      - name: Railway Login
+        run: railway login --token 94b46a96-7c44-45e4-bdfc-1179dca0e705
 
-      - name: Deploy to Railway
+      - name: Link Project
+        run: railway link
+
+      - name: Deploy ke Railway
         run: railway up
-        env:
-          RAILWAY_TOKEN: 94b46a96-7c44-45e4-bdfc-1179dca0e705
