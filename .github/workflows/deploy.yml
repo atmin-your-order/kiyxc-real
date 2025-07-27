@@ -3,7 +3,7 @@ name: Deploy ke Railway
 on:
   push:
     branches:
-      - main # Ganti jika kamu pakai branch lain
+      - main  # Ubah jika branch kamu beda
 
 jobs:
   deploy:
@@ -18,14 +18,15 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Railway CLI (baru)
+      - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      - name: Login ke Railway
-        run: railway login --token 94b46a96-7c44-45e4-bdfc-1179dca0e705
-
-      - name: Link ke Project Railway
-        run: railway link
+      - name: Setup Railway Token
+        run: railway whoami
+        env:
+          RAILWAY_TOKEN: 94b46a96-7c44-45e4-bdfc-1179dca0e705
 
       - name: Deploy ke Railway
         run: railway up
+        env:
+          RAILWAY_TOKEN: 94b46a96-7c44-45e4-bdfc-1179dca0e705
